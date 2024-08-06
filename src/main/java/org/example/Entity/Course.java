@@ -19,6 +19,8 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course")
     private Set<Lesson> lessons;
 
-    @ManyToOne
-    private Department department;
+    private String name;
+
+    private String courseCode;
+
 }

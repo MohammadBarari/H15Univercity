@@ -2,6 +2,7 @@ package org.example.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.Entity.baseEntity.BaseEntity;
 import org.example.enums.Days;
 
 import java.time.LocalDateTime;
@@ -16,10 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Lesson {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Lesson extends BaseEntity {
 
     private String title;
 
@@ -41,4 +39,6 @@ public class Lesson {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    private String courseCode;
 }
