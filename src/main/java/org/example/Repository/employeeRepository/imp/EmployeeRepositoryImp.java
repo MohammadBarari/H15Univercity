@@ -2,10 +2,9 @@ package org.example.Repository.employeeRepository.imp;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
+import org.apache.commons.lang3.reflect.Typed;
 import org.example.Entity.*;
 import org.example.Entity.baseEntity.BaseEntity;
 import org.example.Repository.employeeRepository.EmployeeRepository;
@@ -24,47 +23,63 @@ public class EmployeeRepositoryImp <T extends BaseEntity> implements EmployeeRep
         query.setParameter(2, password);
         return (BaseEmployee) query.getSingleResult();
     }
-
+    private Class<T> entityClass;
     @Override
     public T save(T entity) {
         EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(entity);
-        entityManager.getTransaction().commit();
-        return entity;
-    }
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(entity);
+            entityManager.getTransaction().commit();
+            return entity;
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            return null;
+        }
+        }
 
     @Override
     public T update(T entity) {
         EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
-        return entity;
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(entity);
+            entityManager.getTransaction().commit();
+            return entity;
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+            return null;
+        }
     }
 
     @Override
-    public void delete(T entity) {
+    public void delete(T em) {
+
         EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.remove(entity);
-        entityManager.getTransaction().commit();
+        try {
+            em = (T) entityManager.find(em.getClass(),em.getId());
+            entityManager.getTransaction().begin();
+            entityManager.remove(em);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
     }
 
     @Override
-    public Student findStudentByNumber(String number) {
-        EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
-        Query query = entityManager.createNativeQuery("select * from student where studentNumber= ?");
-        query.setParameter(1, number);
-        return (Student) query.getSingleResult();
-    }
+    public Student findStudentByNumber(String number){
 
-    @Override
-    public Teacher findTeacher(String teacherNumber) {
         EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
-        Query query = entityManager.createNativeQuery("select * from student where teacherNumber = ?");
-        query.setParameter(1, teacherNumber);
-        return (Teacher) query.getSingleResult();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> cq = cb.createQuery(Student.class);
+        Root<Student> root = cq.from(Student.class);
+        Predicate predicate = cb.equal(root.get("studentNumber"), number);
+        cq.where(predicate);
+        TypedQuery<Student> query = entityManager.createQuery(cq);
+        return query.getSingleResult();
     }
 
     @Override
@@ -104,6 +119,34 @@ public class EmployeeRepositoryImp <T extends BaseEntity> implements EmployeeRep
     @Override
     public List<Lesson> lessonsByTeacher(Teacher teacher) {
         return List.of();
+    }
+
+    @Override
+    public Term findTerm(Integer year) {
+        EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
+        Query query = entityManager.createNativeQuery("select * from term where termdate = ?");
+        query.setParameter(1, year);
+        return (Term) query.getSingleResult();
+    }
+
+    @Override
+    public List<Course> findAllCourse() {
+        EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
+        Query query = entityManager.createNativeQuery("select * from course", Course.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Lesson> findStudentByLessonAndStudentNumber(String courseCode, String studentNumber) {
+        EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
+        Query query = entityManager.createQuery(
+                "SELECT c FROM Student s " +
+                        "JOIN s.coursePreferences c " +
+                        "JOIN c.lesson l " +
+                        "WHERE s.studentNumber = :studentNumber AND l.courseCode = :courseCode", CoursePreference.class);
+        query.setParameter("studentNumber", studentNumber);
+        query.setParameter("courseCode", courseCode);
+        return query.getResultList();
     }
 
 }

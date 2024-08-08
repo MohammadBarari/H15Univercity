@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Student extends BaseEntity {
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true ,mappedBy = "student")
     private Set<CoursePreference> coursePreferences;
     @Column(nullable = false)
     private String firstName;
@@ -28,8 +28,6 @@ public class Student extends BaseEntity {
     @Column(nullable = false)
     private String phoneNumber;
     private String email;
-    @Column(nullable = false)
-    private String phone;
     @Column(nullable = false)
     private String studentNumber;
     @Column(nullable = false)
@@ -43,6 +41,7 @@ public class Student extends BaseEntity {
     @Column(nullable = false)
     private Integer lastTermsAverage;
 
+    private Integer currentTerm;
     @Enumerated(EnumType.ORDINAL)
     private Degree degree;
 }

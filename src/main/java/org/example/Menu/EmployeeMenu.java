@@ -6,14 +6,11 @@ import org.example.Service.baseEmployee.imp.BaseEmployeeServiceImp;
 import org.example.enums.Days;
 import org.example.enums.Degree;
 import org.example.enums.TypeOfTeacher;
-import org.example.functions.TriFunction;
-import org.w3c.dom.ls.LSOutput;
+import org.example.functions.pac.TriFunction;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
@@ -110,7 +107,7 @@ public class EmployeeMenu implements MenuEmployee{
                         case 2:{
                             System.out.println("please enter the teacherNumber");
                             String teacherNumber = scanner.nextLine();
-                            Teacher teacher =baseEmployeeService.findByTeacherNumber(teacherNumber);
+                            Teacher teacher =null;
                             if (teacher == null){
                                 System.out.println("teacher not found");
                             }
@@ -123,7 +120,7 @@ public class EmployeeMenu implements MenuEmployee{
                         case 3:{
                             System.out.println("please enter the teacherNumber that you want to delete");
                             String teacherNumber = scanner.nextLine();
-                            Teacher teacher =baseEmployeeService.findByTeacherNumber(teacherNumber);
+                            Teacher teacher =null;
                             if (teacher == null){
                                 System.out.println("teacher not found");
                             }
@@ -285,6 +282,11 @@ public class EmployeeMenu implements MenuEmployee{
         student.setPassword(notAcceptNull.apply(scanner.nextLine()));
         System.out.println("please enter its last average ");
         student.setLastTermsAverage(stringIntegerFunction.apply(scanner.nextLine()));
+        System.out.println("please enter the studentNumber ");
+        student.setStudentNumber(notAcceptNull.apply(scanner.nextLine()));
+        System.out.println("please enter the year of entrance");
+        student.setYearEnter(stringIntegerFunction.apply(scanner.nextLine()));
+        baseEmployeeService.save(student);
     }
 
 
@@ -389,8 +391,10 @@ public class EmployeeMenu implements MenuEmployee{
             AtomicBoolean checkTimeOfTeacherLessons = new AtomicBoolean(true);
             if (mainTeacher.getLessons() != null && !mainTeacher.getLessons().isEmpty()) {
                 mainTeacher.getLessons().forEach(lesson1 -> {
-                    if (Objects.equals(lesson1.getDays(), lesson.getDays())&&!(lesson1.getStartLesson().isAfter(lesson1.getEndLesson()) &&
-                            lesson1.getEndLesson().isBefore(lesson.getStartLesson()))) {
+                    boolean sameDay = Objects.equals(lesson1.getDays(), lesson.getDays());
+                    boolean inSameTime = lesson.getEndLesson().isAfter(lesson1.getStartLesson()) && lesson.getStartLesson().isBefore(lesson1.getStartLesson()) ||
+                            lesson.getStartLesson().isBefore(lesson1.getEndLesson()) && lesson.getEndLesson().isAfter(lesson1.getEndLesson()) ;
+                     if (sameDay && inSameTime) {
                         checkTimeOfTeacherLessons.set(false);
                     }
                 });
@@ -402,18 +406,35 @@ public class EmployeeMenu implements MenuEmployee{
 
                 if (Objects.isNull(course)) {
                     System.out.println("not found lets create one ");
+
+                    System.out.println("please set the term that you want to induce this course ");
+                    Integer year = stringIntegerFunction.apply(scanner.nextLine());
+                   Term term = baseEmployeeService.findTerm(year);
                     course = new Course();
                     course.setCourseCode(lesson.getCourseCode());
                     course.setName(lesson.getTitle());
+                    if (Objects.isNull(term)) {
+                        term = new Term();
+                        term.setTermDate(year);
+                        course.setTerm(term);
+                        Set<Course> courses = Set.of(course);
+                        term.setCourses(courses);
+                    }else {
+                        course.setTerm(term);
+                        term.getCourses().add(course);
+                    }
                     lesson.setCourse(course);
+                    Set<Lesson> lessons = Set.of(lesson);
+                    course.setLessons(lessons);
                 }else {
+
                     lesson.setCourse(course);
+                    course.getLessons().add(lesson);
                 }
                 if (mainTeacher.getLessons() != null && !mainTeacher.getLessons().isEmpty()) {
                     mainTeacher.getLessons().add(lesson);
                 }else {
                     Set<Lesson> lessons = Set.of(lesson);
-                    course.setLessons(lessons);
                     mainTeacher.setLessons(lessons);
                 }
                 lesson.setTeacher(mainTeacher);
@@ -429,10 +450,7 @@ public class EmployeeMenu implements MenuEmployee{
        return baseEmployeeService.findByStudentNumber(studentNumber);
     }
 
-    @Override
-    public Teacher findTeacher(String teacherNumber) {
-        return baseEmployeeService.findByTeacherNumber(teacherNumber);
-    }
+
 
     @Override
     public BaseEmployee findEmployee(BaseEmployee baseEmployee) {
@@ -481,6 +499,29 @@ public class EmployeeMenu implements MenuEmployee{
 
     @Override
     public void deleteLesson(Lesson lesson) {
+        Course course = baseEmployeeService.findByCourseCodeOrTitle(lesson.getCourseCode(), lesson.getTitle());
+        System.out.println("which of this you want to delete please press the code of it ");
+        course.getLessons().forEach(lesson1 -> {
+            System.out.println("++++++++++++++++++");
+            System.out.println(lesson1.getId());
+            System.out.println(lesson1.getStartLesson());
+            System.out.println(lesson1.getEndLesson());
+            //System.out.println(lesson1.getTeacher().getLastName());
+            System.out.println(lesson1.getDays());
+            System.out.println("++++++++++++++++++");
+                }
 
+        );
+        System.out.println("please enter the id of the lesson that you want to delete ");
+        int id = stringIntegerFunction.apply(scanner.nextLine());
+        Lesson lesson2 = new Lesson();
+        lesson2 = course.getLessons().stream().filter(lesson1 ->
+                lesson1.getId() == id).findAny().get();
+        for (int i = 0; i < lesson2.getCoursePreference().size(); i++) {
+
+            lesson2.getCoursePreference().get(i).setStudent(null);
+        }
+        lesson2.setTeacher(null);
+        baseEmployeeService.delete(lesson2);
     }
 }

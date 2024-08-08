@@ -1,10 +1,7 @@
 package org.example.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.Entity.baseEntity.BaseEntity;
 
@@ -25,5 +22,6 @@ public class Course extends BaseEntity {
     private String name;
     @Column(unique = true, nullable = true)
     private String courseCode;
-
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
+    private Term term;
 }

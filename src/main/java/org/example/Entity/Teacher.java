@@ -18,7 +18,7 @@ public class Teacher extends BaseEmployee {
     @Enumerated(EnumType.ORDINAL)
     private TypeOfTeacher typeOfTeacher;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.ALL} , mappedBy = "teacher")
     private Set<Lesson> lessons;
 
     @Column(nullable = false)

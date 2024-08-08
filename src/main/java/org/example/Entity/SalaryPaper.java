@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "salary")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -16,7 +18,8 @@ public class SalaryPaper {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Double salary;
+    private Long salary;
+    private LocalDate salaryUpdate;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private BaseEmployee employee;

@@ -8,6 +8,7 @@ import org.example.enums.Days;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "lesson")
@@ -32,15 +33,16 @@ public class Lesson extends BaseEntity {
 
     private LocalDateTime dateOfExam;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(mappedBy = "lesson" , cascade = CascadeType.PERSIST)
-    CoursePreference coursePreference;
+    @OneToMany(mappedBy = "lesson" , cascade = CascadeType.ALL,orphanRemoval = true)
+    List<CoursePreference> coursePreference;
+
     private String courseCode;
 }

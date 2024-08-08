@@ -13,11 +13,9 @@ public interface EmployeeRepository<T extends BaseEntity>
 
         T update(T entity);
 
-        void delete(T entity);
+        void delete(T em);
 
         Student findStudentByNumber(String number);
-
-        Teacher findTeacher(String teacherNumber);
 
         BaseEmployee findEmployeeByNumber(String number);
 
@@ -27,4 +25,9 @@ public interface EmployeeRepository<T extends BaseEntity>
 
         List<Lesson> lessonsByTeacher (Teacher teacher);
 
+        Term findTerm(Integer year);
+
+        List<Course> findAllCourse();
+
+        List<Lesson> findStudentByLessonAndStudentNumber(String courseCode,String studentNumber);
 }

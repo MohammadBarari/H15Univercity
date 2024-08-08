@@ -9,7 +9,6 @@ public interface MenuEmployee {
     void instantiateOrUpdateTeacher(Teacher teacher, int forUpdate);
     void instantiateOrUpdateLesson(Lesson lesson, int forUpdate);
     Student findStudent(String studentNumber);
-    Teacher findTeacher(String teacherNumber);
     BaseEmployee findEmployee(BaseEmployee baseEmployee);
     Course findCourse(Course course);
     void deleteEmployee(BaseEmployee baseEmployee);

@@ -1,12 +1,15 @@
 package org.example.Service.baseEmployee.imp;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import org.example.Entity.*;
 import org.example.Entity.baseEntity.BaseEntity;
 import org.example.Repository.employeeRepository.EmployeeRepository;
 import org.example.Repository.employeeRepository.imp.EmployeeRepositoryImp;
 import org.example.Service.baseEmployee.BaseEmployeeService;
+import org.example.enums.TypeOfTeacher;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class BaseEmployeeServiceImp<T extends BaseEntity> implements BaseEmployeeService<T> {
@@ -26,28 +29,35 @@ public class BaseEmployeeServiceImp<T extends BaseEntity> implements BaseEmploye
 
     @Override
     public T update(T entity) {
-        return employeeRepository.update(entity);
+        try {
+            return employeeRepository.update(entity);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
-    public T delete(T entity) {
-        return null;
+    public void delete(T entity) {
+        try {
+            employeeRepository.delete(entity);
+        }catch (NoResultException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Student findByStudentNumber(String studentNumber) {
-        return employeeRepository.findStudentByNumber(studentNumber);
-    }
-
-    @Override
-    public Teacher findByTeacherNumber(String teacherNumber) {
         try {
-            return employeeRepository.findTeacher(teacherNumber);
+            return employeeRepository.findStudentByNumber(studentNumber);
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println(e.getMessage());
             return null;
         }
     }
+
+
 
     @Override
     public BaseEmployee findByEmployeeNumber(String phoneNumber) {
@@ -87,5 +97,54 @@ public class BaseEmployeeServiceImp<T extends BaseEntity> implements BaseEmploye
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public Term findTerm(Integer year) {
+        try {return
+                employeeRepository.findTerm(year);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Course> findAll() {
+       return employeeRepository.findAllCourse();
+    }
+
+    @Override
+    public List<Lesson> findStudentByLessonAndStudentNumber(String courseCode, String studentNumber) {
+        try {
+            return employeeRepository.findStudentByLessonAndStudentNumber(courseCode, studentNumber);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public SalaryForTeacher calculateSalaryForTeacher(Teacher teacher, LocalDate update) {
+        try {
+            SalaryForTeacher salaryForTeacher = new SalaryForTeacher();
+            salaryForTeacher.setEmployee(teacher);
+            salaryForTeacher.setSalaryUpdate(update);
+            int sum = teacher.getLessons().stream().mapToInt(Lesson::getNumberOfUnit).sum();
+            if (teacher.getTypeOfTeacher().equals(TypeOfTeacher.faculity_member)) {
+                salaryForTeacher.setSalary(1_000_000L * sum + 5_000_000L);
+            } else {
+                salaryForTeacher.setSalary(1_000_000L * sum);
+            }
+            return salaryForTeacher;
+        }catch (Exception e){
+            System.out.println("something went wrong");
+            return null;
+        }
+    }
+
+    @Override
+    public SalaryPaper calculateSalaryPaperForEmployee(BaseEmployee employee, LocalDate update) {
+        return null;
     }
 }

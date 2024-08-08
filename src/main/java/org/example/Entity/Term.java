@@ -23,7 +23,7 @@ public class Term
     @JoinColumn(name = "department_id")
     private Set<Course> courses;
 
-    @Column(nullable = false)
+    @Column(nullable = false ,unique = true)
     private Integer termDate;
 
 }

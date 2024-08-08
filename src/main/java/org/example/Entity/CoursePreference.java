@@ -1,9 +1,6 @@
 package org.example.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.Entity.baseEntity.BaseEntity;
@@ -18,10 +15,12 @@ import org.example.Entity.baseEntity.BaseEntity;
 @Setter
 @ToString
 public class CoursePreference extends BaseEntity {
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.REMOVE})
+    @JoinColumn(nullable = true)
     private Student student;
 
     private Integer grade;
