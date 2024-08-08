@@ -21,15 +21,26 @@ public class Student extends BaseEntity {
 
     @OneToMany
     private Set<CoursePreference> coursePreferences;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(nullable = false)
+    private String phoneNumber;
     private String email;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false)
     private String studentNumber;
+    @Column(nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String major;
+    @Column(nullable = false)
     private Integer yearEnter;
+    @Column(nullable = false)
     private Integer lastTermsAverage;
 
     @Enumerated(EnumType.ORDINAL)

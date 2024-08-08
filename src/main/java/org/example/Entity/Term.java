@@ -21,8 +21,9 @@ public class Term
 
     @OneToMany
     @JoinColumn(name = "department_id")
-    Set<Course> courses;
+    private Set<Course> courses;
 
-    @OneToOne(mappedBy = "term")
-    private Department department;
+    @Column(nullable = false)
+    private Integer termDate;
+
 }
