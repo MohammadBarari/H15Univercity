@@ -1,4 +1,4 @@
-package org.example.Menu;
+package org.example.Menu.interfaces;
 
 import org.example.Entity.*;
 
@@ -14,6 +14,5 @@ public interface MenuEmployee {
     void deleteEmployee(BaseEmployee baseEmployee);
     void deleteStudent(Student student);
     void deleteTeacher(Teacher teacher);
-    void deleteCourse(Course course);
     void deleteLesson(Lesson lesson);
 }

@@ -1,4 +1,4 @@
-package org.example.Menu;
+package org.example.Menu.interfaces;
 
 import org.example.Entity.Course;
 import org.example.Entity.Student;

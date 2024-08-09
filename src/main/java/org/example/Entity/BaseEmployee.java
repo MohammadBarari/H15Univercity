@@ -30,7 +30,6 @@ public class BaseEmployee extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private Degree degree;
 
-
     private String email;
 
     @Column(unique = true, nullable = false)

@@ -1,6 +1,7 @@
 package org.example.Menu;
 
 import org.example.Entity.*;
+import org.example.Menu.interfaces.MenuEmployee;
 import org.example.Service.baseEmployee.BaseEmployeeService;
 import org.example.Service.baseEmployee.imp.BaseEmployeeServiceImp;
 import org.example.enums.Days;
@@ -14,21 +15,26 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 
-public class EmployeeMenu implements MenuEmployee{
+public class EmployeeMenu implements MenuEmployee {
     Scanner scanner = new Scanner(System.in);
+    private BaseEmployee baseEmployee;
     private BaseEmployeeService baseEmployeeService;
     public EmployeeMenu() {
         baseEmployeeService = new BaseEmployeeServiceImp();
     }
     public boolean validate(BaseEmployee token){
-        return baseEmployeeService.login(token.getUsername(),
-                token.getPassword()) != null;
+        if (baseEmployeeService.login(token.getUsername(),token.getPassword()) != null){
+           baseEmployee = token;
+        }return false;
     }
 
     public void Login()
     {
         Scanner scanner = new Scanner(System.in);
             System.out.println("Welcome ");
+            System.out.println(baseEmployee.getFirstName());
+            System.out.println(baseEmployee.getLastName());
+            System.out.println(baseEmployee.getSalaryPapers());
             System.out.println("Which of this do you want");
             System.out.println("1 :  student");
             System.out.println("2 :  teacher");
@@ -54,7 +60,6 @@ public class EmployeeMenu implements MenuEmployee{
                     switch (studentChoose){
                         case 1:{
                             Student student = new Student();
-//                            instantiateStudent(student,1);
                             baseEmployeeService.save(student);
                             break;
 
@@ -451,7 +456,6 @@ public class EmployeeMenu implements MenuEmployee{
     }
 
 
-
     @Override
     public BaseEmployee findEmployee(BaseEmployee baseEmployee) {
         return baseEmployeeService.findByEmployeeNumber(baseEmployee.getPhoneNumber());
@@ -493,11 +497,6 @@ public class EmployeeMenu implements MenuEmployee{
     }
 
     @Override
-    public void deleteCourse(Course course) {
-
-    }
-
-    @Override
     public void deleteLesson(Lesson lesson) {
         Course course = baseEmployeeService.findByCourseCodeOrTitle(lesson.getCourseCode(), lesson.getTitle());
         System.out.println("which of this you want to delete please press the code of it ");
@@ -510,7 +509,6 @@ public class EmployeeMenu implements MenuEmployee{
             System.out.println(lesson1.getDays());
             System.out.println("++++++++++++++++++");
                 }
-
         );
         System.out.println("please enter the id of the lesson that you want to delete ");
         int id = stringIntegerFunction.apply(scanner.nextLine());
@@ -518,7 +516,6 @@ public class EmployeeMenu implements MenuEmployee{
         lesson2 = course.getLessons().stream().filter(lesson1 ->
                 lesson1.getId() == id).findAny().get();
         for (int i = 0; i < lesson2.getCoursePreference().size(); i++) {
-
             lesson2.getCoursePreference().get(i).setStudent(null);
         }
         lesson2.setTeacher(null);

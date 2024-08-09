@@ -4,6 +4,7 @@ import org.example.Entity.Course;
 import org.example.Entity.CoursePreference;
 import org.example.Entity.Lesson;
 import org.example.Entity.Student;
+import org.example.Menu.interfaces.StudentMenuInterface;
 import org.example.Service.baseEmployee.BaseEmployeeService;
 import org.example.Service.baseEmployee.imp.BaseEmployeeServiceImp;
 import org.example.functions.pac.TriFunction;

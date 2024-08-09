@@ -23,7 +23,6 @@ public interface EmployeeRepository<T extends BaseEntity>
 
         Teacher findByTeacherCodeOrFirstNameAndLastName(Teacher teacher);
 
-        List<Lesson> lessonsByTeacher (Teacher teacher);
 
         Term findTerm(Integer year);
 

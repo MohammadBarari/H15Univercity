@@ -5,35 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="16e1e329-26ae-4139-8c9c-16d3043bf31c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/TeacherMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/TeacherMenuInterFace.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/studentRepository/StudentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Service/studentService/StudentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/functions/Functions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/93b59d5d-6738-4fa2-8369-c9d9db0d9f6b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/93b59d5d-6738-4fa2-8369-c9d9db0d9f6b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/93b59d5d-6738-4fa2-8369-c9d9db0d9f6b/storage_v2/_src_/database/postgres.edMnLQ/schema/schema_test.cCTFww.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/93b59d5d-6738-4fa2-8369-c9d9db0d9f6b/storage_v2/_src_/database/postgres.edMnLQ/schema/schema_test.cCTFww.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Resource/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Resource/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/CoursePreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/CoursePreference.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Department.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Lesson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Lesson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/SalaryPaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/SalaryPaper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/Term.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/Term.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/BaseEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/BaseEmployee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entity/SalaryForTeacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entity/SalaryForTeacher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/EmployeeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/EmployeeMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/EmployeeStudentMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/MenuEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/MenuEmployee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/MenuEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/interfaces/MenuEmployee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/StudentMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/StudentMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/StudentMenuInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/StudentMenuInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/employeeRepository/EmployeeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/employeeRepository/EmployeeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Repository/employeeRepository/imp/EmployeeRepositoryImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Repository/employeeRepository/imp/EmployeeRepositoryImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Service/baseEmployee/BaseEmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Service/baseEmployee/BaseEmployeeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Service/baseEmployee/imp/BaseEmployeeServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Service/baseEmployee/imp/BaseEmployeeServiceImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Service/test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/functions/TriFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/functions/pac/TriFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/StudentMenuInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/interfaces/StudentMenuInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/TeacherMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/TeacherMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu/TeacherMenuInterFace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu/interfaces/TeacherMenuInterFace.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +138,7 @@
       <workItem from="1722805795273" duration="624000" />
       <workItem from="1722806432896" duration="1653000" />
       <workItem from="1722844859604" duration="24315000" />
-      <workItem from="1723035219422" duration="110993000" />
+      <workItem from="1723035219422" duration="113770000" />
     </task>
     <servers />
   </component>
@@ -178,16 +158,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Menu/EmployeeMenu.java</url>
-          <line>522</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

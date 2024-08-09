@@ -1,8 +1,8 @@
 package org.example.Menu;
 
 import org.example.Entity.CoursePreference;
-import org.example.Entity.Lesson;
 import org.example.Entity.Teacher;
+import org.example.Menu.interfaces.TeacherMenuInterFace;
 import org.example.Service.baseEmployee.BaseEmployeeService;
 import org.example.Service.baseEmployee.imp.BaseEmployeeServiceImp;
 import org.example.functions.pac.TriFunction;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Function;
 
-public class TeacherMenu implements TeacherMenuInterFace{
+public class TeacherMenu implements TeacherMenuInterFace {
     private Scanner scanner = new Scanner(System.in);
     private Teacher token;
     private BaseEmployeeService baseEmployeeService;
@@ -35,9 +35,14 @@ public class TeacherMenu implements TeacherMenuInterFace{
     public void menu() {
 
     }
+    @Override
     public void changeGradeOfStudents(Teacher teacher){
+        System.out.println(teacher.getSalaryPapers().toString());
+        System.out.println(teacher.getFirstName());
+        System.out.println(teacher.getFirstName());
+        System.out.println(teacher.getUsername());
+        System.out.println(teacher.getRole());
         System.out.println("please enter the lesson do you wnat to see the students :" );
-        if (teacher != null){
             System.out.println("please inset student number ");
             String studentNumber = notAcceptNull.apply(scanner.nextLine());
             System.out.println("please insert curse code ");
@@ -55,8 +60,12 @@ public class TeacherMenu implements TeacherMenuInterFace{
                     baseEmployeeService.update(coursePreference);
                 }
             }
-        }
     }
+
+    @Override
+    public void showSalaryPaper(Teacher teacher) {
+    }
+
     Function<String,Integer> stringIntegerFunction = string -> {
         boolean valid = false;
         Integer outPut = null;

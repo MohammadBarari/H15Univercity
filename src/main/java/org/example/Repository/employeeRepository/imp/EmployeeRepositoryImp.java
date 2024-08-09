@@ -59,9 +59,9 @@ public class EmployeeRepositoryImp <T extends BaseEntity> implements EmployeeRep
 
         EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
         try {
-            em = (T) entityManager.find(em.getClass(),em.getId());
+             = (T) entityManager.find(em.getClass(),em.getId());
             entityManager.getTransaction().begin();
-            entityManager.remove(em);
+            entityManager.remove(entity);
             entityManager.getTransaction().commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -80,6 +80,14 @@ public class EmployeeRepositoryImp <T extends BaseEntity> implements EmployeeRep
         cq.where(predicate);
         TypedQuery<Student> query = entityManager.createQuery(cq);
         return query.getSingleResult();
+    }
+
+    @Override
+    public Teacher findTeacher(String teacherNumber) {
+        EntityManager entityManager = HibernateUtil.getInstance().createEntityManager();
+        Query query = entityManager.createNativeQuery("select * from student where teacherNumber = ?");
+        query.setParameter(1, teacherNumber);
+        return (Teacher) query.getSingleResult();
     }
 
     @Override
